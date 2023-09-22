@@ -1,0 +1,6 @@
+Put downloaded databases in this folder:
+pudl.sqlite
+pg_misc_tables_efs.sqlite
+PowerGenomeResourceGroups/generation_profiles
+efs_files_utc/
+cambium_dg_data/
