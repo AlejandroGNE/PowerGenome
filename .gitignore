@@ -135,3 +135,6 @@ data/transformed_data/*
 /data/random/*
 /data/resource_groups/*
 /data/cache/*
+
+# large databases
+databases/

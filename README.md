@@ -16,13 +16,13 @@ Power system optimization models can be used to explore the cost and emission im
 - Hourly generation profiles for wind & solar
 - Cost estimates for new generating units
 
-Because computational complexity and run times increase as the number of regions and generating unit clusters increases, a user might want only want to disaggregate regions and generating units close to the primary region of interest. For example, a study focused on clean electricity regulations in New Mexico might combine several states in the Pacific Northwest into a single region while also splitting Arizona combined cycle units into multiple clusters.
+Because computational complexity and run times increase as one increases the number of regions modeled or the number of clusters used to represent groups of generating units, a user might want to only disaggregate regions and generating units close to the primary region of interest. For example, a study focused on clean electricity regulations in New Mexico might combine several states in the Pacific Northwest into a single region while also splitting Arizona combined cycle units into multiple clusters.
 
-The goal of PowerGenome is to let a user make all of these choices in a settings file and then run a single script that generates input files for the power system model. PowerGenome currently generates input files for [GenX](https://energy.mit.edu/wp-content/uploads/2017/10/Enhanced-Decision-Support-for-a-Changing-Electricity-Landscape.pdf), and we hope to expand to other models in the near future.
+**The goal of PowerGenome is to let a user make all of these choices in a settings file and then run a single script that generates input files for the power system model.** PowerGenome currently generates input files for [GenX](https://energy.mit.edu/wp-content/uploads/2017/10/Enhanced-Decision-Support-for-a-Changing-Electricity-Landscape.pdf), and we hope to expand to other models in the near future.
 
 ## Data
 
-PowerGenome uses data from a number of different sources, including EIA, NREL, and EPA. The data are accessed through a combination of sqlite databases, CSV files, and parquet data files. All data files [are available here](https://drive.google.com/drive/folders/1K5GWF5lbe-mKSTUSuJxnFdYGCdyDJ7iE?usp=sharing). 
+PowerGenome uses data from a number of different sources, including EIA, NREL, and EPA. The data are accessed through a combination of sqlite databases, CSV files, and parquet data files. All data files [are available here](https://drive.google.com/drive/folders/1K5GWF5lbe-mKSTUSuJxnFdYGCdyDJ7iE?usp=sharing).
 
 1. EIA data on existing generating units are already compiled into a [single sqlite database (PUDL)](https://doi.org/10.5281/zenodo.3653158) (see instructions for using it below). This file is available at the link above or you can download it from the Zenodo repository.
 2. A second sqlite database (`pg_misc_tables_efs.sqlite`) has tables with new resource costs from NREL ATB, transmission constraints between IPM regions from EIA, and hourly demand within each IPM region derived from NREL or FERC data.
@@ -32,7 +32,7 @@ PowerGenome uses data from a number of different sources, including EIA, NREL, a
 
 This project pulls data from [PUDL](https://github.com/catalyst-cooperative/pudl). As such, it requires installation of PUDL to access a normalized sqlite database and some of the convienience PUDL functions.
 
-`catalystcoop.pudl` is included in the `environment.yml` file and will be installed automatically in the conda environment (see instructions below). Catalyst Cooperative will be creating versioned data releases of PUDL, which can be [accessed on Zenodo](https://doi.org/10.5281/zenodo.3653158). Download the zip file from Zenodo, unzip it, and find the sqlite database under `pudl_data/sqlite/pudl.sqlite`. Note that the version of `catalystcoop.pudl` software may change based on the database version you use. Look on the right-hand side of the zenodo archive to see what software version was used to compile the data. If the version in your conda environment does not match the version used to compile the data, you can change it in the `environment.yml` file or install a [different version](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-pkgs.html#installing-packages) using `mamba install catalystcoop.pudl=<your_version>`.
+`catalystcoop.pudl` is included in the `environment.yml` file and will be installed automatically in the conda environment (see instructions below). Catalyst Cooperative will be creating versioned data releases of PUDL, which can be [accessed on Zenodo](https://doi.org/10.5281/zenodo.3653158). Download the zip file from Zenodo, unzip it, and find the sqlite database under `pudl_data/sqlite/pudl.sqlite`. Note that the version of `catalystcoop.pudl` software may change based on the database version you use. Look on the right-hand side of the zenodo archive to see what software version was used to compile the data. If the version in your conda environment does not match the version used to compile the data, you can change it in the `environment.yml` file or install a [different version](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-pkgs.html#installing-packages) using `conda install catalystcoop.pudl=<your_version>`.
 
 ![PUDL software version for database](/docs/_static/pudl_version.png)
 
@@ -40,7 +40,7 @@ This project pulls data from [PUDL](https://github.com/catalyst-cooperative/pudl
 
 1. Clone this repository to your local machine and navigate to the top level (PowerGenome) folder.
 
-2. Create a conda environment named `powergenome` using the provided `environment.yml` file. If you don't already use conda it is easiest to download and install [Mambaforge](https://github.com/conda-forge/miniforge#mambaforge), which will install conda with mamba in the `base` environment. See [this description](https://bioconda.github.io/faqs.html#what-s-the-difference-between-miniconda-miniforge-mambaforge-micromamba) for more information on the difference between different ways to install conda and mamba. Conda usually fail to resolve dependencies in under a day so I highly recommend that you either start with Mambaforge or [install mamba in your `base` environment](https://mamba.readthedocs.io/en/latest/installation.html#existing-conda-install) and use it instead.
+2. Create a conda environment using the provided `environment.yml` file. If you don't already use conda it is easiest to download and install [Mambaforge](https://github.com/conda-forge/miniforge#mambaforge), which will install conda with mamba in the `base` environment. See [this description](https://bioconda.github.io/faqs.html#what-s-the-difference-between-miniconda-miniforge-mambaforge-micromamba) for more information on the difference between different ways to install conda and mamba. Conda usually fails to resolve dependencies in under a day so I highly recommend that you either start with Mambaforge or [install mamba in your `base` environment](https://mamba.readthedocs.io/en/latest/installation.html#existing-conda-install) and use it instead. If you choose not to use mamba, you can just replace the 'mamba' commands below with 'conda'.
 
 ```sh
 mamba env create -f environment.yml
@@ -49,7 +49,7 @@ mamba env create -f environment.yml
 3. Activate the `powergenome` environment.
 
 ```sh
-conda activate powergenome
+mamba activate powergenome
 ```
 
 4. pip-install an editable version of this project
